@@ -7,7 +7,7 @@ class SyntaxAnalyzer {
   val VERBS : List[String] = List("ates", "lovez", "hatez")
   val NOUNS : List[String] = List("kat", "dawg", "rat")
   val ADJECTIVES : List[String] = List("fat", "hungry", "happy", "mean")
-  val ADVERB : List[String] = List("accidently", "quickly", "secretly")
+  val ADVERB : List[String] = List("accidently", "quickly", "secretly", "")
 
   // Flag for errors and helper methods
   var errorFound : Boolean = false
@@ -19,17 +19,10 @@ class SyntaxAnalyzer {
   // This method implements the BNF rule for a sentence <S> ::= <NP> <ADV> <V> <NP> | <NP> <V> <NP>
   def Sentence() = {
     resetError()
-    if(!errorFound) {
-      NounPhrase()
-      if (!errorFound) Adverb()
-      if (!errorFound) Verb()
-      if (!errorFound) NounPhrase()
-    }
-    else{
-      if (!errorFound) NounPhrase()
-      if (!errorFound) Verb()
-      if (!errorFound) NounPhrase()
-    }
+      if(!errorFound) NounPhrase()
+      if(!errorFound) Adverb()
+      if(!errorFound) Verb()
+      if(!errorFound) NounPhrase()
 
 
   }
@@ -83,10 +76,12 @@ class SyntaxAnalyzer {
   def Adverb() = {
     if(ADVERB contains Compiler.currentToken)
       Compiler.Scanner.getNextToken()
-    else {
+
+    /*else {
       println("SYNTAX ERROR - An article was expected when '" + Compiler.currentToken + "' was found.")
       setError()
     }
+    */
   }
 
 }
